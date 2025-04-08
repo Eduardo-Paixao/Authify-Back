@@ -25,7 +25,7 @@ export class UserResolver {
     return users;
   }
 
-  @Mutation(() => AuthPayload)
+  @Mutation(() => User)
   async register(
     @Arg("name", () => String) name: string,
     @Arg("email", () => String) email: string,
@@ -68,7 +68,7 @@ export class UserResolver {
       throw new Error("erro ao registar usuario");
     }
   }
-  @Mutation(() => AuthPayload)
+  @Mutation(() => User)
   async update(
     @Arg("name", () => String) name: string,
     @Arg("email", () => String) email: string,
@@ -100,7 +100,7 @@ export class UserResolver {
           roles: true,
         },
       });
-      return { ...user };
+      return {...user};
     } catch (error) {
       console.error("erro ao editar usuario", error);
       throw new Error("erro ao editar usuario");
