@@ -6,7 +6,7 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./graphql/Resolvers";
 import fastifyCookie from "@fastify/cookie";
 import "dotenv/config";
-import { verifyToken } from "./auth";
+import { generateToken, tryRefreshToken, verifyToken } from "./auth";
 import { GraphQLContext } from "./types";
 
 const app = Fastify();
@@ -33,6 +33,7 @@ async function start() {
     graphiql: true,
     context: async (request, reply): Promise<GraphQLContext> => {
       const token = request.cookies.token;
+      const refreshToken = request.cookies.refreshToken;
 
       if (!token) {
         return { request, reply, user: null };
@@ -42,8 +43,11 @@ async function start() {
         const { user } = verifyToken(token);
         return { request, reply, user: user };
       } catch (error) {
-        reply.clearCookie('token')
-        return { request, reply, user: null };
+        if (!refreshToken) {
+          return { request, reply, user: null };
+        }
+        const user = await tryRefreshToken(refreshToken, reply);
+        return { request, reply, user };
       }
     },
   });

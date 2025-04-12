@@ -4,6 +4,7 @@ import {
   generateToken,
   comparePassword,
   verifyToken,
+  generateRefreshToken,
 } from "../../auth";
 import { User, AuthPayload } from "../TypesDefs";
 import { PrismaClient } from "@prisma/client";
@@ -122,12 +123,21 @@ export class UserResolver {
       const valid = await comparePassword(password, user?.password || "");
       if (!valid || !user) throw new Error("Credenciais invalidas");
       const token = generateToken(user);
+      const refreshToken = generateRefreshToken(user);
 
       ctx.reply.setCookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 15
+      });
+      ctx.reply.setCookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7
       });
       return { token, user };
     } catch (error) {
