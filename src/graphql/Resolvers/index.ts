@@ -101,7 +101,7 @@ export class UserResolver {
           roles: true,
         },
       });
-      return {...user};
+      return { ...user };
     } catch (error) {
       console.error("erro ao editar usuario", error);
       throw new Error("erro ao editar usuario");
@@ -130,29 +130,40 @@ export class UserResolver {
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
-        maxAge: 60 * 15
+        maxAge: 60 * 15,
       });
       ctx.reply.setCookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
-        maxAge: 60 * 60 * 24 * 7
+        maxAge: 60 * 60 * 24 * 7,
       });
       return { token, user };
     } catch (error) {
       throw new Error("Credenciais invalidas");
     }
   }
-  // @Query(() => User, { nullable: true })
-  // async userVerified(@Ctx() ctx: GraphQLContext) {
-  //   if (!ctx.user) {
-  //     throw new Error("Não autorizado");
-  //   }
-
-  //   return await prisma.user.findUnique({
-  //     where: { id: ctx.user.id },
-  //     include: { roles: true },
-  //   });
-  // }
+  @Mutation(() => Boolean)
+  async logout(@Ctx() ctx: { reply: FastifyReply }) {
+    try {
+      ctx.reply.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 15,
+      });
+      ctx.reply.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
+      return true
+    } catch (error) {
+      throw new Error("Credenciais invalidas");
+    }
+  }
 }
