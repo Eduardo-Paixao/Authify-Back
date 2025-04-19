@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "postinstall": "prisma generate"
+    "start": "node build/index.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
