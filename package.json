@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch src/index.ts"
+    "dev": "tsx --watch src/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@fastify/aws-lambda": "^5.1.4",
