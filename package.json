@@ -9,7 +9,6 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@fastify/aws-lambda": "^5.1.4",
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.0.1",
     "@prisma/client": "^6.5.0",

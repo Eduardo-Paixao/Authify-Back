@@ -6,7 +6,7 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./graphql/Resolvers";
 import fastifyCookie from "@fastify/cookie";
 import "dotenv/config";
-import { generateToken, tryRefreshToken, verifyToken } from "./auth";
+import { tryRefreshToken, verifyToken } from "./auth";
 import { GraphQLContext } from "./types";
 
 const app = Fastify();
@@ -52,11 +52,9 @@ async function start() {
     },
   });
 
-  // app.listen({ port: 4000 }, () => {
-  //   console.log("🚀 Servidor rodando em http://localhost:4000/graphiql");
-  // });
+  app.listen({ port: 4000 }, () => {
+    console.log("🚀 Servidor rodando em http://localhost:4000/graphiql");
+  });
 }
 
 start();
-
-export default app;
