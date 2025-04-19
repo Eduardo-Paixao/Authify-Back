@@ -1,36 +1,23 @@
-# Etapa 1: build da aplicação
-FROM node:20-alpine AS builder
+# Usa uma imagem leve do Node
+FROM node:20-alpine
 
+# Cria o diretório de trabalho
 WORKDIR /app
 
-# Copia apenas os arquivos necessários primeiro (melhora cache)
-COPY package.json yarn.lock ./
-
-# Instala as dependências (sem reconstruir lockfile)
-RUN yarn install --frozen-lockfile
-
-# Copia o restante dos arquivos
+# Copia os arquivos para o container
 COPY . .
 
-# Compila o TypeScript
+# Instala as dependências
+RUN yarn install
+
+# Compila o código TypeScript
 RUN yarn build
 
-# Etapa 2: cria uma imagem menor apenas com o necessário
-FROM node:18-alpine
+# Copia o banco de dados local para o diretório de execução
+# (Se você estiver usando volume em /data, certifique-se que o .db já está no lugar certo)
 
-WORKDIR /app
-
-# Copia apenas o que é necessário para rodar a aplicação
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/data ./data
-
-# Instala as dependências novamente para garantir que nada esteja faltando
-RUN yarn install --frozen-lockfile
-
-# Expõe a porta
+# Expõe a porta do servidor Fastify
 EXPOSE 4000
 
 # Inicia a aplicação
-CMD ["node", "build/index.js"]
+CMD ["yarn", "start"]
