@@ -26,6 +26,9 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/data ./data
 
+# Instala as dependências novamente para garantir que nada esteja faltando
+RUN yarn install --frozen-lockfile
+
 # Expõe a porta
 EXPOSE 4000
 
