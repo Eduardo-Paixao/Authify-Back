@@ -34,7 +34,8 @@ async function start() {
     context: async (request, reply): Promise<GraphQLContext> => {
       const token = request.cookies.token;
       const refreshToken = request.cookies.refreshToken;
-
+      console.log(token, "token");
+      console.log(refreshToken, "refreshToken");
       if (!token) {
         return { request, reply, user: null };
       }
@@ -54,7 +55,7 @@ async function start() {
 
   const PORT = Number(process.env.PORT) || 4000;
 
-  app.listen({ port: PORT, host: '0.0.0.0' }, () => {
+  app.listen({ port: PORT, host: "0.0.0.0" }, () => {
     console.log(`🚀 Servidor rodando em http://localhost:${PORT}/graphiql`);
   });
 }
