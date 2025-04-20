@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "dotenv/config";
-import { User } from "./graphql/TypesDefs";
+import { User } from "./graphql/TypesDefs/index.js";
 import { FastifyReply } from "fastify";
 
 const SECRET = process.env.JWT_SECRET!;

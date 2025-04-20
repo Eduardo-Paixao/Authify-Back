@@ -3,14 +3,13 @@ import {
   hashPassword,
   generateToken,
   comparePassword,
-  verifyToken,
   generateRefreshToken,
-} from "../../auth";
-import { User, AuthPayload } from "../TypesDefs";
+} from "../../auth.js";
+import { User, AuthPayload } from "../TypesDefs/index.js";
 import { PrismaClient } from "@prisma/client";
 import { FastifyReply } from "fastify";
 import "dotenv/config";
-import { GraphQLContext } from "../../types";
+import { GraphQLContext } from "../../types/index.js";
 
 const prisma = new PrismaClient();
 
