@@ -1,6 +1,9 @@
 {
   "name": "Authify-Back",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.11.1"
+  },
   "main": "index.js",
   "license": "MIT",
   "type": "module",
