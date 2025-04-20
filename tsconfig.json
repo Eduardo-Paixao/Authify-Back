@@ -8,8 +8,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./build",
-    "experimentalDecorators": true,      // Adicionada para habilitar decoradores
-    "emitDecoratorMetadata": true,        // Adicionada para emitir metadados de decoradores
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
