@@ -2,12 +2,12 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "ES6",
-    "module": "ESNext",
+    "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
+    "outDir": "./build",
     "experimentalDecorators": true,      // Adicionada para habilitar decoradores
     "emitDecoratorMetadata": true,        // Adicionada para emitir metadados de decoradores
   },
