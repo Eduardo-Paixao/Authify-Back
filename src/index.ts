@@ -52,7 +52,7 @@ async function start() {
     },
   });
 
-  app.listen({ port: 4000 }, () => {
+  app.listen({ port: 4000, host: '0.0.0.0' }, () => {
     console.log("🚀 Servidor rodando em http://localhost:4000/graphiql");
   });
 }
