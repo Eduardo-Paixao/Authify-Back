@@ -6,7 +6,7 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./graphql/Resolvers/index.js";
 import fastifyCookie from "@fastify/cookie";
 import "dotenv/config";
-import { tryRefreshToken, verifyToken } from "./auth";
+import { tryRefreshToken, verifyToken } from "./auth.js";
 import { GraphQLContext } from "./types";
 
 const app = Fastify();
