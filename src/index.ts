@@ -3,7 +3,7 @@ import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
 import mercurius from "mercurius";
 import { buildSchema } from "type-graphql";
-import { UserResolver } from "./graphql/Resolvers/index";
+import { UserResolver } from "./graphql/Resolvers/index.js";
 import fastifyCookie from "@fastify/cookie";
 import "dotenv/config";
 import { tryRefreshToken, verifyToken } from "./auth";
