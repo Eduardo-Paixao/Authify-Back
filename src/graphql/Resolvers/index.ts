@@ -123,7 +123,8 @@ export class UserResolver {
       if (!valid || !user) throw new Error("Credenciais invalidas");
       const token = generateToken(user);
       const refreshToken = generateRefreshToken(user);
-
+      console.log(token, "token");
+      console.log(refreshToken, "refreshToken");
       ctx.reply.setCookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",

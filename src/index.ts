@@ -34,8 +34,7 @@ async function start() {
     context: async (request, reply): Promise<GraphQLContext> => {
       const token = request.cookies.token;
       const refreshToken = request.cookies.refreshToken;
-      console.log(token, "token");
-      console.log(refreshToken, "refreshToken");
+
       if (!token) {
         return { request, reply, user: null };
       }
