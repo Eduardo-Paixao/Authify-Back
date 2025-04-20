@@ -2,7 +2,7 @@
   "name": "Authify-Back",
   "version": "1.0.0",
   "engines": {
-    "node": "20.11.1"
+    "node": "20.9.0"
   },
   "main": "index.js",
   "license": "MIT",
