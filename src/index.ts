@@ -18,7 +18,7 @@ async function start() {
   });
 
   app.register(fastifyCors, {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://authify-front.vercel.app/"],
     credentials: true,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
