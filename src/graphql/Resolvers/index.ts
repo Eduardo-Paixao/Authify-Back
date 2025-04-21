@@ -127,14 +127,14 @@ export class UserResolver {
       ctx.reply.setCookie("token", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "strict",
         path: "/",
         maxAge: 60 * 15,
       });
       ctx.reply.setCookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "strict",
         path: "/",
         maxAge: 60 * 60 * 24 * 7,
       });
