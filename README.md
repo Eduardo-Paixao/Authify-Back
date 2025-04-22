@@ -10,7 +10,6 @@ Authify-Back é uma API de autenticação desenvolvida com **Fastify** e **Graph
 - [Mercurius (GraphQL)](https://mercurius.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prisma ORM](https://www.prisma.io/)
-- [Zod](https://github.com/colinhacks/zod) – validação de dados
 - [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
 - [dotenv](https://github.com/motdotla/dotenv)
