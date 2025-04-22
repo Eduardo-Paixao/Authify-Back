@@ -1,0 +1,2 @@
+[phases.setup]
+nixFile = ".nixpacks/nixpkgs.nix"
