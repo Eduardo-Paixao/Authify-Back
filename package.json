@@ -10,9 +10,8 @@
   "scripts": {
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
-    "start": "node build/index.js",
     "postinstall": "prisma generate",
-    "vercel-build": "npx prisma generate && npx prisma migrate deploy"  
+    "start": "node build/index.js"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
