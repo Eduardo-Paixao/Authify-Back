@@ -1,11 +1,11 @@
-import { Query, Mutation, Arg, Resolver, Ctx } from "type-graphql";
+import { Query, Mutation, Arg, Resolver, Ctx, Int } from "type-graphql";
 import {
   hashPassword,
   generateToken,
   comparePassword,
   generateRefreshToken,
 } from "../../auth.js";
-import { User, AuthPayload } from "../TypesDefs/index.js";
+import { User, AuthPayload, PaginatedUsers } from "../TypesDefs/index.js";
 import { PrismaClient } from "@prisma/client";
 import { FastifyReply } from "fastify";
 import "dotenv/config";
@@ -15,14 +15,27 @@ const prisma = new PrismaClient();
 
 @Resolver()
 export class UserResolver {
-  @Query(() => [User])
-  async users(@Ctx() ctx: GraphQLContext) {
+  @Query(() => PaginatedUsers)
+  async paginatedUsers(
+    @Ctx() ctx: GraphQLContext,
+    @Arg("page", () => Int, { defaultValue: 1 }) page: number,
+    @Arg("limit", () => Int, { defaultValue: 3 }) limit: number
+  ) {
     if (!ctx.user) {
       throw new Error("Não autorizado");
     }
-    const users = await prisma.user.findMany({ include: { roles: true } });
+    const skip = (page - 1) * limit;
+    const [users, totalCount] = await Promise.all([
+      prisma.user.findMany({
+        skip: skip,
+        take: limit,
+        include: { roles: true },
+      }),
+      prisma.user.count(),
+    ]);
+    const hasMore = skip + users.length < totalCount;
 
-    return users;
+    return { users, totalCount, hasMore };
   }
 
   @Mutation(() => User)
@@ -123,7 +136,7 @@ export class UserResolver {
       if (!valid || !user) throw new Error("Credenciais invalidas");
       const token = generateToken(user);
       const refreshToken = generateRefreshToken(user);
-      
+
       ctx.reply.setCookie("token", token, {
         httpOnly: true,
         secure: true,
@@ -160,7 +173,7 @@ export class UserResolver {
         path: "/",
         maxAge: 60 * 60 * 24 * 7,
       });
-      return true
+      return true;
     } catch (error) {
       throw new Error("Credenciais invalidas");
     }
