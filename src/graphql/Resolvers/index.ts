@@ -18,8 +18,8 @@ export class UserResolver {
   @Query(() => PaginatedUsers)
   async paginatedUsers(
     @Ctx() ctx: GraphQLContext,
-    @Arg("page", () => Int, { defaultValue: 1 }) page: number,
-    @Arg("limit", () => Int, { defaultValue: 3 }) limit: number
+    @Arg("page", () => Int, { defaultValue: 1 }) page: number = 1,
+    @Arg("limit", () => Int, { defaultValue: 3 }) limit: number = 3
   ) {
     if (!ctx.user) {
       throw new Error("Não autorizado");
