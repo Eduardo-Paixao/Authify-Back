@@ -15,6 +15,7 @@ export const generateRefreshToken = (user: User) => {
   return jwt.sign({ user }, REFRESH_SECRET, { expiresIn: "7d" });
 };
 
+
 export const verifyToken = (token: string) => {
   try {
     return jwt.verify(token, SECRET) as { user: User };
